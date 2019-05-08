@@ -13,10 +13,11 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 	ObjectOutputStream oos;
 	Socket socket;
 	String name;
+	int i;
 
-	
+
 	public ChatClient(){
-		
+
 		String stringName = (String)JOptionPane.showInputDialog(
                     this,
                     "You can Enter your name here:",
@@ -36,13 +37,13 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 				DataObject1 tempObject = new DataObject1();
 				tempObject.setName(name);
 				tempObject.setMessage("Has Exited.");
-				try{	
+				try{
 					oos.writeObject(tempObject);
 				}catch(IOException ioe){}
 				System.exit(0);
 			}
 		});
-		
+
 		t = new JTextField();
 		t.addActionListener(this);
 		ta = new JTextArea();
@@ -67,13 +68,13 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 			ois = new ObjectInputStream(socket.getInputStream());
 			DataObject1 tempObject = new DataObject1();
 			tempObject.setName(name);
-			tempObject.setMessage("Has Entered.");	
+			tempObject.setMessage("Has Entered.");
 			oos.writeObject(tempObject);
 		}catch(UnknownHostException uhe){System.out.println("Bad URL");
 		}catch(IOException ioe){ System.out.println("IO Exception");
-		}		
+		}
 		Thread thread = new Thread(this, "");
-		thread.start();	
+		thread.start();
 
 
 		setVisible(true);
@@ -81,7 +82,7 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 	}
 
 	public void run(){
-		
+
 		boolean done = false;
 		while(!done){
 
@@ -98,7 +99,7 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 		}
 
 	}
-	
+
 	public void actionPerformed(ActionEvent ae){
 			Object source=ae.getSource();
 		try{
@@ -109,14 +110,14 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 			if(d.getMessage().equals("bye")){
 				DataObject1 tempObject = new DataObject1();
 				tempObject.setName(name);
-				tempObject.setMessage(" quit");	
+				tempObject.setMessage(" quit");
 				oos.writeObject(tempObject);
 				System.exit(0);
 			}
 			if(d.getMessage().equals(":)")){
 				DataObject1 tempObject = new DataObject1();
 				tempObject.setName(name);
-				tempObject.setMessage("I smiled!");	
+				tempObject.setMessage("I smiled!");
 				oos.writeObject(tempObject);
 			}
 			oos.writeObject(d);
@@ -146,12 +147,12 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
 			catch(Exception e){}
 	}
 
-		
+
 
 	public static void main(String[] args){
-		
+
 			ChatClient c = new ChatClient();
-		
+
 
 	}
 }
