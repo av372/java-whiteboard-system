@@ -26,6 +26,7 @@ public class ChatClient extends JFrame implements ActionListener, Runnable{
                     null,
                     null,
                     "");
+					int i;
 		System.out.println(stringName);
 
 		name = stringName;
